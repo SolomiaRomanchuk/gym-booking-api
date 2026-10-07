@@ -4,3 +4,7 @@ __pycache__/
 *.pyc
 .idea/
 .DS_Store
+.env
+db.sqlite3
+.postman/
+postman/

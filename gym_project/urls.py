@@ -1,27 +1,41 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from gym import views
+
+
+router = DefaultRouter()
+
+router.register(
+    'classes',
+    views.GymClassViewSet,
+    basename='gym-class'
+)
+
+router.register(
+    'trainers',
+    views.TrainerViewSet,
+    basename='trainer'
+)
+
+router.register(
+    'bookings',
+    views.BookingViewSet,
+    basename='booking'
+)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path(
-        'api/classes/',
-        views.GymClassListView.as_view(),
-        name='gym_class_list'
+        'api/',
+        include(router.urls)
     ),
 
     path(
-        'api/classes/<int:pk>/',
-        views.GymClassDetailView.as_view(),
-        name='gym_class_detail'
-    ),
-
-    path(
-        'api/trainers/',
-        views.TrainerListView.as_view(),
-        name='trainer_list'
+        'api-auth/',
+        include('rest_framework.urls')
     ),
 ]

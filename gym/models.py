@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Trainer(models.Model):
     # Trainer's full name
@@ -39,5 +39,35 @@ class GymClass(models.Model):
     # Number of already booked places
     booked_places = models.PositiveIntegerField(default=0)
 
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='gym_classes',
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.title
+
+
+class Booking(models.Model):
+    gym_class = models.ForeignKey(
+        GymClass,
+        on_delete=models.CASCADE,
+        related_name='bookings'
+    )
+
+    client_name = models.CharField(max_length=100)
+    client_email = models.EmailField()
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='bookings',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f'{self.client_name} - {self.gym_class.title}'
