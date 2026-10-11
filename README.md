@@ -72,3 +72,43 @@ Ordering:
 ```blash
 /api/classes/?ordering=-date
 ```
+
+## Running with Docker
+
+1. Copy `.env.example` to `.env`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Replace `SECRET_KEY` with your own secure Django secret key.
+
+3. Build and start the application:
+
+   ```bash
+   docker compose up --build
+   ```
+
+4. Open the API at `http://localhost:8000/api/`.
+
+5. Create a superuser if needed:
+
+   ```bash
+   docker compose exec web python manage.py createsuperuser
+   ```
+
+6. Add sample data if the database is empty:
+
+   ```bash
+   docker compose exec web python manage.py seed
+   ```
+
+### JWT Authentication
+
+- `POST /api/token/` — obtain access and refresh tokens.
+- `POST /api/token/refresh/` — refresh an access token.
+- `POST /api/token/verify/` — verify a token.
+
+Authenticated requests use the header:
+
+`Authorization: Bearer <access_token>`
