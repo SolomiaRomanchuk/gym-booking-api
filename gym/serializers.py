@@ -93,3 +93,4 @@ class BookingSerializer(serializers.ModelSerializer):
             'client_email',
             'owner'
         ]
+        
