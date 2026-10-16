@@ -1,44 +1,15 @@
 {
   "info": {
+    "_postman_id": "a67d825d-7de9-4d50-a5d8-91d60dcb5c28",
     "name": "Gym Booking API",
     "description": "Django REST Framework Gym Booking API. Set base_url, username and password in a local Postman environment. Check serializer fields before sending example create/update bodies.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58785904",
+    "_collection_link": "https://go.postman.co/collection/58785904-a67d825d-7de9-4d50-a5d8-91d60dcb5c28?source=collection_link"
   },
   "item": [
     {
       "name": "Login",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "{{base_url}}/api/token/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "token"
-          ]
-        },
-        "auth": {
-          "type": "noauth"
-        },
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
-      },
-      "response": [],
       "event": [
         {
           "listen": "test",
@@ -54,11 +25,11 @@
             ]
           }
         }
-      ]
-    },
-    {
-      "name": "Refresh Token",
+      ],
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "POST",
         "header": [
           {
@@ -66,31 +37,31 @@
             "value": "application/json"
           }
         ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": "{{base_url}}/api/token/refresh/",
+          "raw": "{{base_url}}/api/token/",
           "host": [
             "{{base_url}}"
           ],
           "path": [
             "api",
             "token",
-            "refresh"
+            ""
           ]
-        },
-        "auth": {
-          "type": "noauth"
-        },
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"refresh\": \"{{refresh}}\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
         }
       },
-      "response": [],
+      "response": []
+    },
+    {
+      "name": "Refresh Token",
       "event": [
         {
           "listen": "test",
@@ -106,7 +77,41 @@
             ]
           }
         }
-      ]
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refresh\": \"{{refresh}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/token/refresh/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "token",
+            "refresh",
+            ""
+          ]
+        }
+      },
+      "response": []
     },
     {
       "name": "Classes - List",
@@ -120,7 +125,8 @@
           ],
           "path": [
             "api",
-            "classes"
+            "classes",
+            ""
           ]
         }
       },
@@ -139,7 +145,8 @@
           "path": [
             "api",
             "classes",
-            "{{class_id}}"
+            "{{class_id}}",
+            ""
           ]
         }
       },
@@ -155,16 +162,6 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/classes/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "classes"
-          ]
-        },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"name\": \"Example Class\",\n  \"trainer\": 1,\n  \"capacity\": 10\n}",
@@ -173,6 +170,17 @@
               "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/classes/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "classes",
+            ""
+          ]
         }
       },
       "response": []
@@ -187,17 +195,6 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/classes/{{class_id}}/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "classes",
-            "{{class_id}}"
-          ]
-        },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"name\": \"Updated Class\"\n}",
@@ -206,6 +203,18 @@
               "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/classes/{{class_id}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "classes",
+            "{{class_id}}",
+            ""
+          ]
         }
       },
       "response": []
@@ -223,7 +232,8 @@
           "path": [
             "api",
             "classes",
-            "{{class_id}}"
+            "{{class_id}}",
+            ""
           ]
         }
       },
@@ -242,7 +252,8 @@
           "path": [
             "api",
             "classes",
-            "available"
+            "available",
+            ""
           ]
         }
       },
@@ -261,7 +272,13 @@
           "path": [
             "api",
             "classes",
-            "?search=yoga"
+            ""
+          ],
+          "query": [
+            {
+              "key": "search",
+              "value": "yoga"
+            }
           ]
         }
       },
@@ -280,7 +297,13 @@
           "path": [
             "api",
             "classes",
-            "?trainer=1"
+            ""
+          ],
+          "query": [
+            {
+              "key": "trainer",
+              "value": "1"
+            }
           ]
         }
       },
@@ -299,7 +322,13 @@
           "path": [
             "api",
             "classes",
-            "?ordering=name"
+            ""
+          ],
+          "query": [
+            {
+              "key": "ordering",
+              "value": "name"
+            }
           ]
         }
       },
@@ -318,7 +347,13 @@
           "path": [
             "api",
             "classes",
-            "?page=1"
+            ""
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            }
           ]
         }
       },
@@ -336,7 +371,8 @@
           ],
           "path": [
             "api",
-            "trainers"
+            "trainers",
+            ""
           ]
         }
       },
@@ -355,7 +391,8 @@
           "path": [
             "api",
             "trainers",
-            "{{trainer_id}}"
+            "{{trainer_id}}",
+            ""
           ]
         }
       },
@@ -373,7 +410,8 @@
           ],
           "path": [
             "api",
-            "bookings"
+            "bookings",
+            ""
           ]
         }
       },
@@ -392,7 +430,8 @@
           "path": [
             "api",
             "bookings",
-            "{{booking_id}}"
+            "{{booking_id}}",
+            ""
           ]
         }
       },
@@ -408,16 +447,6 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/bookings/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "bookings"
-          ]
-        },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"gym_class\": \"{{class_id}}\"\n}",
@@ -426,6 +455,17 @@
               "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/bookings/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "bookings",
+            ""
+          ]
         }
       },
       "response": []
@@ -440,17 +480,6 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/bookings/{{booking_id}}/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "bookings",
-            "{{booking_id}}"
-          ]
-        },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"gym_class\": \"{{class_id}}\"\n}",
@@ -459,6 +488,18 @@
               "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/bookings/{{booking_id}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "bookings",
+            "{{booking_id}}",
+            ""
+          ]
         }
       },
       "response": []
@@ -476,7 +517,8 @@
           "path": [
             "api",
             "bookings",
-            "{{booking_id}}"
+            "{{booking_id}}",
+            ""
           ]
         }
       },
@@ -485,6 +527,9 @@
     {
       "name": "Token - Verify",
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "POST",
         "header": [
           {
@@ -492,20 +537,6 @@
             "value": "application/json"
           }
         ],
-        "url": {
-          "raw": "{{base_url}}/api/token/verify/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "api",
-            "token",
-            "verify"
-          ]
-        },
-        "auth": {
-          "type": "noauth"
-        },
         "body": {
           "mode": "raw",
           "raw": "{\n  \"token\": \"{{access}}\"\n}",
@@ -514,6 +545,18 @@
               "language": "json"
             }
           }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/token/verify/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "token",
+            "verify",
+            ""
+          ]
         }
       },
       "response": []
