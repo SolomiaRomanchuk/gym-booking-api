@@ -54,15 +54,24 @@ class GymClassViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def available(self, request):
+        # Знаходимо заняття, на які ще є вільні місця
         classes = self.get_queryset().filter(
             booked_places__lt=models.F('max_participants')
         )
 
-        serializer = self.get_serializer(
-            classes,
-            many=True
-        )
+        # Застосовуємо фільтрацію та пошук із налаштувань ViewSet
+        classes = self.filter_queryset(classes)
 
+        # Розділяємо результати на сторінки
+        page = self.paginate_queryset(classes)
+
+        # Якщо пагінація налаштована, повертаємо одну сторінку
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        # Якщо пагінація вимкнена, повертаємо всі результати
+        serializer = self.get_serializer(classes, many=True)
         return Response(serializer.data)
 
 

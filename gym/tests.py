@@ -314,8 +314,10 @@ class GymAPITests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # Наше заняття має 8 вільних місць
-        self.assertEqual(response.data[0]["available_places"], 8)
+        self.assertEqual(
+            response.data["results"][0]["available_places"],
+            8
+        )
 
     def test_create_booking_authenticated(self):
         # Авторизований користувач створює бронювання
