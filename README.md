@@ -73,42 +73,69 @@ Ordering:
 /api/classes/?ordering=-date
 ```
 
-## Running with Docker
+## Running with Docker and PostgreSQL
 
-1. Copy `.env.example` to `.env`:
+This project uses Django REST Framework, JWT authentication, PostgreSQL 17, and Docker Compose.
 
-   ```bash
-   cp .env.example .env
-   ```
+### Requirements
 
-2. Replace `SECRET_KEY` with your own secure Django secret key.
+- Docker
+- Docker Compose
+- A local `.env` file configured from `.env.example`
 
-3. Build and start the application:
+### Start the application
 
-   ```bash
-   docker compose up --build
-   ```
+```bash
+docker compose up --build
+```
 
-4. Open the API at `http://localhost:8000/api/`.
+Docker Compose starts two services:
 
-5. Create a superuser if needed:
+- `web` — Django REST API
+- `db` — PostgreSQL 17
 
-   ```bash
-   docker compose exec web python manage.py createsuperuser
-   ```
+The Django service waits until PostgreSQL is healthy and then applies database migrations automatically.
 
-6. Add sample data if the database is empty:
+### Create an admin user
 
-   ```bash
-   docker compose exec web python manage.py seed
-   ```
+```bash
+docker compose exec web python manage.py createsuperuser
+```
 
-### JWT Authentication
+### Add sample data
 
-- `POST /api/token/` — obtain access and refresh tokens.
-- `POST /api/token/refresh/` — refresh an access token.
-- `POST /api/token/verify/` — verify a token.
+```bash
+docker compose exec web python manage.py seed
+```
 
-Authenticated requests use the header:
+### Check PostgreSQL
 
-`Authorization: Bearer <access_token>`
+```bash
+docker compose exec db psql -U app_user -d app_db
+```
+
+Inside `psql`:
+
+```sql
+\dt
+SELECT * FROM gym_trainer;
+SELECT * FROM gym_gymclass;
+```
+
+### API
+
+The API is available at:
+
+`http://localhost:8000/api/`
+
+JWT login endpoint:
+
+`http://localhost:8000/api/token/`
+
+### Stop containers
+
+```bash
+docker compose down
+```
+
+PostgreSQL data is stored in the `postgres_data` Docker volume and persists across normal container restarts.
